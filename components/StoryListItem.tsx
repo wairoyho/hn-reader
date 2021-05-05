@@ -48,31 +48,32 @@ const StoryListItem = (props: StoryListItemProps) => {
     fetchStory();
   }, [storyId]);
 
-  return story ? (
+  return (
     <li className="relative box-border w-full flex justify-start items-center text-left no-underline py-2 px-4 shadow-sm">
-      <div>
+      {story ? (
         <div>
-          <p className="prose-sm text-gray-500">
-            <span className="inline prose-lg text-black">{story.title}</span>
-            {story.url && <> ({new URL(story.url).hostname})</>}
-          </p>
+          <div>
+            <p className="prose-sm text-gray-500">
+              <span className="inline prose-lg text-black">{story.title}</span>
+              {story.url && <> ({new URL(story.url).hostname})</>}
+            </p>
+          </div>
+          <div className="flex prose-sm text-gray-700">
+            <span>
+              {`${story.score} points`}
+              {" | "}
+              {`by ${story.by}`}
+              {" | "}
+              {`${getRelativeTime(new Date(), new Date(story.time * 1000))}`}
+              {" | "}
+              {`${(story?.kids ?? []).length} comments`}
+            </span>
+          </div>
         </div>
-        <div className="flex prose-sm text-gray-700">
-          <span>
-            {`${story.score} points`}
-            {" | "}
-            {`by ${story.by}`}
-            {" | "}
-            {`${getRelativeTime(new Date(), new Date(story.time * 1000))}`}
-            {" | "}
-            {`${(story?.kids ?? []).length} comments`}
-          </span>
-        </div>
-      </div>
-      {/* <div className="p-6" /> */}
+      ) : (
+        <div>Loading...</div>
+      )}
     </li>
-  ) : (
-    <>Loading...</>
   );
 };
 
