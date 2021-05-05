@@ -64,7 +64,7 @@ const StoryListItem = (props: StoryListItemProps) => {
               {" | "}
               {`by ${story.by}`}
               {" | "}
-              {`${getRelativeTime(new Date(), new Date(story.time * 1000))}`}
+              {`${getRelativeTime(new Date(story.time * 1000))}`}
               {" | "}
               {`${(story?.kids ?? []).length} comments`}
             </span>
