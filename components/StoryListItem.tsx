@@ -58,16 +58,15 @@ const StoryListItem = (props: StoryListItemProps) => {
               {story.url && <> ({new URL(story.url).hostname})</>}
             </p>
           </div>
-          <div className="flex prose-sm text-gray-700">
-            <span>
-              {`${story.score} points`}
-              {" | "}
-              {`by ${story.by}`}
-              {" | "}
-              {`${getRelativeTime(new Date(story.time * 1000))}`}
-              {" | "}
-              {`${(story?.kids ?? []).length} comments`}
-            </span>
+          <div className="flex flex-wrap prose-sm text-gray-700">
+            <span className="mr-1">{`${story.score} points`}</span>
+            <span className="mr-1">{`by ${story.by}`}</span>
+            <span className="mr-1">{" | "}</span>
+            <span className="mr-1">{`${getRelativeTime(
+              new Date(story.time * 1000)
+            )}`}</span>
+            <span className="mr-1">{" | "}</span>
+            <span>{`${(story?.kids ?? []).length} comments`}</span>
           </div>
         </div>
       ) : (

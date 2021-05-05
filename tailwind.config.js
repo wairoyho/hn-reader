@@ -12,6 +12,9 @@ module.exports = {
       },
     },
   },
+  corePlugins: {
+    flexWrap: true,
+  },
   variants: {
     extend: {},
   },
