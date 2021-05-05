@@ -22,3 +22,60 @@ export interface StoryItem {
   type: "story";
   url?: string;
 }
+
+export interface CommentItem {
+  by: string;
+  deleted?: boolean;
+  id: number;
+  kids?: number[];
+  parent: number;
+  text: string;
+  time: number;
+  type: "comment";
+}
+
+export interface AskItem extends StoryItem {
+  text: string;
+}
+
+export interface JobItem {
+  by: string;
+  id: number;
+  score: number;
+  text: string;
+  time: number;
+  title: string;
+  type: "job";
+  url?: string;
+}
+
+export interface PollItem {
+  by: string;
+  descendants: number;
+  id: number;
+  kids?: number[];
+  parts: number[];
+  score: number;
+  text: string;
+  time: number;
+  title: string;
+  type: "poll";
+}
+
+export interface PollOptItem {
+  by: string;
+  id: number;
+  poll: number;
+  score: number;
+  text: string;
+  time: number;
+  type: "pollopt";
+}
+
+export type NewsItem =
+  | StoryItem
+  | CommentItem
+  | AskItem
+  | JobItem
+  | PollItem
+  | PollOptItem;
