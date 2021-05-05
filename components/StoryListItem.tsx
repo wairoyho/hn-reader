@@ -51,15 +51,13 @@ const StoryListItem = (props: StoryListItemProps) => {
   return story ? (
     <li className="relative box-border w-full flex justify-start items-center text-left no-underline py-2 px-4 shadow-sm">
       <div>
-        <div className="inline-block">
-          <span className="prose prose-lg text-black">{story.title}</span>
-          {story.url && (
-            <span className="prose prose-sm text-gray-500 ml-1">
-              ({new URL(story.url).origin})
-            </span>
-          )}
+        <div>
+          <p className="prose-sm text-gray-500">
+            <span className="inline prose-lg text-black">{story.title}</span>
+            {story.url && <> ({new URL(story.url).hostname})</>}
+          </p>
         </div>
-        <div className="flex prose prose-sm text-gray-700">
+        <div className="flex prose-sm text-gray-700">
           <span>
             {`${story.score} points`}
             {" | "}
