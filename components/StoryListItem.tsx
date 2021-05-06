@@ -4,6 +4,18 @@ import { StoryItem } from "../interfaces";
 import { getItem } from "../services/api";
 import { getRelativeTime } from "../utils/date";
 
+const Skeleton = () => (
+  <div className="flex w-full space-x-4 animate-pulse">
+    <div className="flex-1 space-y-4 py-1">
+      <div className="h-3 bg-amber-100 rounded w-3/4"></div>
+      <div className="space-y-2">
+        <div className="h-4 bg-amber-100 rounded"></div>
+        <div className="h-4 bg-amber-100 rounded w-4/6"></div>
+      </div>
+    </div>
+  </div>
+);
+
 interface StoryListItemProps {
   storyId: number;
 }
@@ -35,9 +47,7 @@ const StoryListItem = (props: StoryListItemProps) => {
       {story ? (
         <div className="w-full">
           <div className="flex flex-wrap prose-sm text-gray-700">
-            {/* <span className="mr-1">{`${story.score} points`}</span> */}
             <span className="">{`@${story.by}`}</span>
-            {/* <span className="ml-1">{" | "}</span> */}
             <span className="ml-2">{`${getRelativeTime(
               new Date(story.time * 1000)
             )}`}</span>
@@ -45,7 +55,7 @@ const StoryListItem = (props: StoryListItemProps) => {
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="24px"
-                viewBox="0 0 24 24"
+                viewBox="0 0 20 24"
                 width="24px"
                 fill="#000000"
               >
@@ -54,8 +64,6 @@ const StoryListItem = (props: StoryListItemProps) => {
               </svg>
               <span>{`${story.score}`}</span>
             </div>
-            {/* <span className="ml-2">💛 {`${story.score}`}</span> */}
-            {/* <span className="ml-1">{" | "}</span> */}
             <div className="flex ml-3">
               <svg
                 className="m-auto"
@@ -79,7 +87,7 @@ const StoryListItem = (props: StoryListItemProps) => {
           </div>
         </div>
       ) : (
-        <div>Loading...</div>
+        <Skeleton />
       )}
     </li>
   );
