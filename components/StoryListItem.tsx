@@ -56,7 +56,7 @@ const StoryListItem = (props: StoryListItemProps) => {
             </div>
             {/* <span className="ml-2">💛 {`${story.score}`}</span> */}
             {/* <span className="ml-1">{" | "}</span> */}
-            <div className="flex ml-auto">
+            <div className="flex ml-3">
               <svg
                 className="m-auto"
                 xmlns="http://www.w3.org/2000/svg"
