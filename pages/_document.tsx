@@ -15,7 +15,12 @@ class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head></Head>
+        <Head>
+          <meta
+            name="viewport"
+            content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover"
+          />
+        </Head>
         <body className="bg-yellow-50 font-sans">
           <Main />
           <NextScript />
