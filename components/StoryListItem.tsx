@@ -43,7 +43,7 @@ const StoryListItem = (props: StoryListItemProps) => {
   }, [storyId]);
 
   return (
-    <li className="relative box-border w-full flex justify-start items-center text-left no-underline py-3 px-4 shadow-sm">
+    <li className="relative box-border w-full flex justify-start items-center text-left no-underline py-3 px-4 border-b">
       {story ? (
         <div className="w-full">
           <div className="flex flex-wrap prose-sm text-gray-700">
