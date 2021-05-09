@@ -1,5 +1,6 @@
-import "tailwindcss/tailwind.css";
 import Head from "next/head";
+
+import "../styles/tailwind.scss";
 
 import type { AppProps /*, AppContext */ } from "next/app";
 
