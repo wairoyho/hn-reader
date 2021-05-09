@@ -5,6 +5,19 @@ import { CommentItem } from "../interfaces";
 import { getItem } from "../services/api";
 import { getRelativeTime } from "../utils/date";
 
+const Skeleton = () => (
+  <div className="flex w-full space-x-4 animate-pulse">
+    <div className="flex-1 space-y-4 py-1">
+      <div className="h-4 bg-amber-100 rounded w-1/2" />
+      <div className="space-y-2">
+        <div className="h-5 bg-amber-100 rounded" />
+        <div className="h-5 bg-amber-100 rounded" />
+        <div className="h-5 bg-amber-100 rounded w-4/6" />
+      </div>
+    </div>
+  </div>
+);
+
 interface CommentListItemProps {
   commentId: number;
   loadmoreItemCount?: number;
@@ -43,6 +56,7 @@ const CommentListItem = (props: CommentListItemProps) => {
 
   return (
     <div className="p-4">
+      <Skeleton />
       {comment ? (
         <article>
           <div className="flex justify-start prose-sm text-gray-500">
@@ -79,7 +93,7 @@ const CommentListItem = (props: CommentListItemProps) => {
           )}
         </article>
       ) : (
-        <div>Loading...</div>
+        <Skeleton />
       )}
     </div>
   );
