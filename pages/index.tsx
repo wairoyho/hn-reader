@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 
 import Layout from "../components/Layout";
@@ -30,7 +31,11 @@ const IndexPage = () => {
     <Layout title="Home">
       <List>
         {storyIdList.slice(0, displayStoryCount).map((storyId) => (
-          <StoryListItem key={storyId} storyId={storyId} />
+          <Link key={storyId} href={`/item/${storyId}`}>
+            <a>
+              <StoryListItem storyId={storyId} />
+            </a>
+          </Link>
         ))}
         <li className="flex p-2">
           <button
