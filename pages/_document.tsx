@@ -14,8 +14,9 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html>
+      <Html style={{ overflowY: "scroll", overscrollBehaviorY: "none" }}>
         <Head>
+          <meta charSet="utf-8" />
           <meta
             name="viewport"
             content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover"
