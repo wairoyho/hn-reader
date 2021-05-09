@@ -44,7 +44,7 @@ const CommentListItem = (props: CommentListItemProps) => {
   return (
     <div className="p-4">
       {comment ? (
-        <div>
+        <article>
           <div className="flex justify-start prose-sm text-gray-500">
             <div>{comment.by}</div>
             <div className="ml-2">
@@ -77,7 +77,7 @@ const CommentListItem = (props: CommentListItemProps) => {
               )}
             </>
           )}
-        </div>
+        </article>
       ) : (
         <div>Loading...</div>
       )}
