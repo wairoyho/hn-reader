@@ -56,7 +56,6 @@ const CommentListItem = (props: CommentListItemProps) => {
 
   return (
     <div className="p-4">
-      <Skeleton />
       {comment ? (
         <article>
           <div className="flex justify-start prose-sm text-gray-500">
