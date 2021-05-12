@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 
+import { useNewsItemStore } from "../components/NewsItemStore";
 import Layout from "../components/Layout";
 import List from "../components/List";
 import StoryListItem from "../components/StoryListItem";
@@ -9,18 +10,26 @@ import { getStoryList } from "../services/api";
 const DISPALY_DISPLAY_COUNT = 10;
 
 const IndexPage = () => {
-  const [storyIdList, setStoryIdList] = useState([]);
-  const [displayStoryCount, setDisplayStoryCount] = useState(
-    DISPALY_DISPLAY_COUNT
-  );
+  const topItemIdList = useNewsItemStore((state) => state.top.ids);
+  const setTopItemIdList = useNewsItemStore((state) => state.top.setIds);
+  const displayStoryCount = useNewsItemStore((state) => state.top.offset);
+  const setDisplayStoryCount = useNewsItemStore((state) => state.top.setOffset);
 
   useEffect(() => {
     const fetchData = async () => {
       const storyIds = await getStoryList("top");
 
-      setStoryIdList(storyIds);
+      setTopItemIdList(storyIds);
     };
-    fetchData();
+    if (topItemIdList.length === 0) {
+      fetchData();
+    }
+  }, [topItemIdList]);
+
+  useEffect(() => {
+    if (!Boolean(displayStoryCount)) {
+      setDisplayStoryCount(displayStoryCount + DISPALY_DISPLAY_COUNT);
+    }
   }, []);
 
   const handleLoadMore = useCallback(() => {
@@ -30,7 +39,7 @@ const IndexPage = () => {
   return (
     <Layout title="Home">
       <List>
-        {storyIdList.slice(0, displayStoryCount).map((storyId) => (
+        {topItemIdList.slice(0, displayStoryCount).map((storyId) => (
           <Link key={storyId} href={`/item/${storyId}`}>
             <a>
               <StoryListItem storyId={storyId} />
