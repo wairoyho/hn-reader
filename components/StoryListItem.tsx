@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import { StoryItem } from "../interfaces";
-import { getItem } from "../services/api";
+// import { getItem as fetchItem } from "../services/api";
+import { geStory as fetchItem } from "../services/api";
 import { getRelativeTime } from "../utils/date";
+
+import { useNewsItemStore } from "./NewsItemStore";
 
 const Skeleton = () => (
   <div className="flex w-full space-x-4 animate-pulse">
@@ -31,16 +34,20 @@ const getColorCode = (score: number) => {
 const StoryListItem = (props: StoryListItemProps) => {
   const { storyId } = props;
 
-  const [story, setStory] = useState<StoryItem | null>(null);
+  const story = useNewsItemStore((state) => state.items[storyId]) as StoryItem;
+  const setItem = useNewsItemStore((state) => state.setItem);
 
   useEffect(() => {
     const fetchStory = async () => {
-      const item = await getItem(storyId);
+      const item = await fetchItem(storyId);
 
-      setStory(item);
+      setItem(storyId, item);
     };
-    fetchStory();
-  }, [storyId]);
+
+    if (!story) {
+      fetchStory();
+    }
+  }, [story]);
 
   return (
     <li className="relative box-border w-full flex justify-start items-center text-left no-underline py-3 px-4 border-b">

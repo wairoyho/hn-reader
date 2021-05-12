@@ -4,6 +4,8 @@ import "../styles/tailwind.scss";
 
 import type { AppProps /*, AppContext */ } from "next/app";
 
+import NewsItemStoreProvider from "../components/NewsItemStore";
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
@@ -14,7 +16,9 @@ function MyApp({ Component, pageProps }: AppProps) {
           content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover"
         />
       </Head>
-      <Component {...pageProps} />
+      <NewsItemStoreProvider>
+        <Component {...pageProps} />
+      </NewsItemStoreProvider>
     </>
   );
 }
