@@ -1,4 +1,9 @@
-import { StoryListType, NewsItem, StoryItem } from "../../interfaces";
+import {
+  StoryListType,
+  NewsItem,
+  StoryItem,
+  CommentItem,
+} from "../../interfaces";
 
 const baseUrl = "https://hacker-news.firebaseio.com";
 
@@ -26,3 +31,7 @@ export const getItem = async (itemId: number): Promise<NewsItem> =>
   await apiInstance(`/v0/item/${itemId}.json`);
 
 export const geStoryItem = getItem as (itemId: number) => Promise<StoryItem>;
+
+export const getCommentItem = getItem as (
+  itemId: number
+) => Promise<CommentItem>;
