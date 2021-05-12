@@ -2,8 +2,10 @@ import { useCallback, useEffect, useState } from "react";
 
 import List from "../components/List";
 import { CommentItem } from "../interfaces";
-import { getItem } from "../services/api";
+import { getCommentItem } from "../services/api";
 import { getRelativeTime } from "../utils/date";
+
+// import CommentListItemSkeleton from "./CommentListItemSkeleton";
 
 const Skeleton = () => (
   <div className="flex w-full space-x-4 animate-pulse">
@@ -31,7 +33,7 @@ const CommentListItem = (props: CommentListItemProps) => {
 
   useEffect(() => {
     const fetchComment = async () => {
-      const item = await getItem(commentId);
+      const item = await getCommentItem(commentId);
 
       setComment(item);
     };
