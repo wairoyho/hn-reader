@@ -1,8 +1,7 @@
 import { useEffect } from "react";
 
 import { StoryItem } from "../interfaces";
-// import { getItem as fetchItem } from "../services/api";
-import { geStory as fetchItem } from "../services/api";
+import { geStoryItem } from "../services/api";
 import { getRelativeTime } from "../utils/date";
 
 import { useNewsItemStore } from "./NewsItemStore";
@@ -39,7 +38,7 @@ const StoryListItem = (props: StoryListItemProps) => {
 
   useEffect(() => {
     const fetchStory = async () => {
-      const item = await fetchItem(storyId);
+      const item = await geStoryItem(storyId);
 
       setItem(storyId, item);
     };
