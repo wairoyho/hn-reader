@@ -7,43 +7,56 @@ import { ReactNode, useCallback, useState } from "react";
 
 import { NewsItem } from "../interfaces";
 
+interface NewsList {
+  ids: number[];
+  offset: number;
+}
+
 interface NewsItemStoreContextValue {
-  top: {
-    ids: number[];
-    setIds: (ids: number[]) => void;
-    offset: number;
-    setOffset: (offset: number) => void;
-  };
+  lists: { [x: string]: NewsList };
   items: { [x: string]: NewsItem };
   setItem: (itemId: number, item: NewsItem) => void;
+  setList: (key: number | string, ids: number[]) => void;
+  setListOffset: (key: number | string, offset: number) => void;
 }
 
 const NewsItemStoreContext = createContext<NewsItemStoreContextValue>({
-  top: {
-    ids: [],
-    // @ts-ignore: value is never read
-    setIds: (ids: number[]) => {},
-    offset: 0,
-    // @ts-ignore: value is never reads
-    setOffset: (offset: number) => {},
-  },
+  lists: {},
   items: {},
   // @ts-ignore: value is never read
   setItem: (id: number, item: NewsItem) => {},
+  // @ts-ignore value never read
+  setList: (key: number | string, ids: number[]) => {},
+  // @ts-ignore value never read
+  setListOffest: (key: number | string, offest: number) => {},
 });
 
 const NewsItemStoreProvider = ({ children }: { children: ReactNode }) => {
-  const [topItemIdList, setTopItemIdListState] = useState<number[]>([]);
-  const [topItemIdListOffset, setTopItemIdListOffsetState] = useState(0);
+  const [lists, setListsState] = useState<{ [x: string]: NewsList }>({});
   const [items, setState] = useState({});
 
-  const setTopItemIdList = useCallback(
-    (ids: number[]) => setTopItemIdListState(ids),
-    [setTopItemIdListState]
+  const setList = useCallback(
+    (key: number | string, ids: number[]) =>
+      setListsState((s) => ({
+        ...s,
+        [key]: {
+          ...s[key],
+          ids,
+          // offset: 0
+        },
+      })),
+    [setListsState]
   );
-  const setTopItemIdListOffset = useCallback(
-    (offset: number) => setTopItemIdListOffsetState(offset),
-    [setTopItemIdListOffsetState]
+  const setListOffset = useCallback(
+    (key: number | string, offset: number) =>
+      setListsState((s) => ({
+        ...s,
+        [key]: {
+          ...s[key],
+          offset,
+        },
+      })),
+    [setListsState]
   );
 
   const setItem = useCallback(
@@ -55,14 +68,11 @@ const NewsItemStoreProvider = ({ children }: { children: ReactNode }) => {
   return (
     <NewsItemStoreContext.Provider
       value={{
-        top: {
-          ids: topItemIdList,
-          setIds: setTopItemIdList,
-          offset: topItemIdListOffset,
-          setOffset: setTopItemIdListOffset,
-        },
+        lists,
         items,
         setItem,
+        setList,
+        setListOffset,
       }}
     >
       {children}

@@ -10,16 +10,18 @@ import { getStoryList } from "../services/api";
 const DISPALY_DISPLAY_COUNT = 10;
 
 const IndexPage = () => {
-  const topItemIdList = useNewsItemStore((state) => state.top.ids);
-  const setTopItemIdList = useNewsItemStore((state) => state.top.setIds);
-  const displayStoryCount = useNewsItemStore((state) => state.top.offset);
-  const setDisplayStoryCount = useNewsItemStore((state) => state.top.setOffset);
+  const topItemIdList = useNewsItemStore((state) => state.lists.top?.ids ?? []);
+  const setTopItemIdList = useNewsItemStore((state) => state.setList);
+  const displayStoryCount = useNewsItemStore(
+    (state) => state.lists.top?.offset ?? 0
+  );
+  const setDisplayStoryCount = useNewsItemStore((state) => state.setListOffset);
 
   useEffect(() => {
     const fetchData = async () => {
       const storyIds = await getStoryList("top");
 
-      setTopItemIdList(storyIds);
+      setTopItemIdList("top", storyIds);
     };
     if (topItemIdList.length === 0) {
       fetchData();
@@ -28,12 +30,12 @@ const IndexPage = () => {
 
   useEffect(() => {
     if (!Boolean(displayStoryCount)) {
-      setDisplayStoryCount(displayStoryCount + DISPALY_DISPLAY_COUNT);
+      setDisplayStoryCount("top", displayStoryCount + DISPALY_DISPLAY_COUNT);
     }
   }, []);
 
   const handleLoadMore = useCallback(() => {
-    setDisplayStoryCount(displayStoryCount + DISPALY_DISPLAY_COUNT);
+    setDisplayStoryCount("top", displayStoryCount + DISPALY_DISPLAY_COUNT);
   }, [displayStoryCount]);
 
   return (
