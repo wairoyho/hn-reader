@@ -51,15 +51,15 @@ export const getServerSideProps: GetServerSideProps = async (
   const { id } = query;
 
   const itemId = parseInt((id ?? "").toString(), 10);
-  let story;
+  let item;
   if (itemId) {
-    story = await getItem(itemId);
+    item = await getItem(itemId);
   }
 
   return {
     props: {
       id: parseInt((id ?? "").toString(), 10),
-      item: story,
+      item: item,
     },
   };
 };
