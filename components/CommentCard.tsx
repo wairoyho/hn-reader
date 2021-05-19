@@ -1,3 +1,5 @@
+import { CommentIcon } from "../components/icons";
+import HtmlContent from "../components/HtmlContent";
 import { CommentItem } from "../interfaces";
 import { getRelativeTime } from "../utils/date";
 
@@ -13,27 +15,29 @@ const CommentCard = (props: CommentCardProps) => {
   }
 
   return (
-    <div>
-      <div className="m-4">
-        <div className="flex flex-wrap prose-sm text-gray-500">
-          <span className="mr-1">{`by ${comment.by}`}</span>
-          <span className="mr-1">{" | "}</span>
-          <span className="mr-1">
+    <article className="w-full">
+      <div className="p-4">
+        <div className="flex flex-wrap prose-sm text-gray-700">
+          <span className="">{`@${comment.by}`}</span>
+          <span className="ml-2">
             {getRelativeTime(new Date(comment.time * 1000))}
           </span>
-          <span className="mr-1">{" | "}</span>
-          <span>parent: {comment.parent}</span>
         </div>
-
         <div>
-          <p className="prose-sm text-gray-500">
-            <div className="flex flex-wrap prose-sm text-gray-700">
-              <div dangerouslySetInnerHTML={{ __html: comment?.text }}></div>
+          <p className="prose-xs text-gray-500">
+            <div className="flex flex-wrap prose-xs text-gray-700">
+              <HtmlContent content={comment?.text} />
             </div>
           </p>
         </div>
+        <div className="flex flex-wrap prose-sm text-gray-700">
+          <div className="flex">
+            <CommentIcon />
+            <span className="ml-2">{`${(comment.kids ?? []).length}`}</span>
+          </div>
+        </div>
       </div>
-    </div>
+    </article>
   );
 };
 

@@ -10,15 +10,16 @@ interface NewsCardProps {
 const NewsCard = (props: NewsCardProps) => {
   const { item } = props;
 
+  let newsItem;
   if (item.type === "story") {
-    return <StoryCard story={item} />;
+    newsItem = <StoryCard story={item} />;
   }
 
   if (item.type === "comment") {
-    return <CommentCard comment={item} />;
+    newsItem = <CommentCard comment={item} />;
   }
 
-  return <div>Unknown Item Type</div>;
+  return <div className="border-b">{newsItem}</div>;
 };
 
 export default NewsCard;

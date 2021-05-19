@@ -1,11 +1,13 @@
-import { useCallback, useEffect, useState } from "react";
+import styled from "@emotion/styled";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
-import List from "../components/List";
+import Avatar from "../components/Avatar";
+import HtmlContent from "../components/HtmlContent";
+import { CommentIcon } from "../components/icons";
 import { CommentItem } from "../interfaces";
 import { getCommentItem } from "../services/api";
 import { getRelativeTime } from "../utils/date";
-
-// import CommentListItemSkeleton from "./CommentListItemSkeleton";
 
 const Skeleton = () => (
   <div className="flex w-full space-x-4 animate-pulse">
@@ -20,16 +22,21 @@ const Skeleton = () => (
   </div>
 );
 
+const StyledAnchor = styled.a`
+  color: rgba(249, 115, 22, var(--tw-bg-opacity));
+`;
+
 interface CommentListItemProps {
   commentId: number;
   loadmoreItemCount?: number;
+  depth?: number;
+  showThreadLine?: boolean;
 }
 
 const CommentListItem = (props: CommentListItemProps) => {
-  const { commentId, loadmoreItemCount = 1 } = props;
+  const { commentId, depth = 0, showThreadLine = false } = props;
 
   const [comment, setComment] = useState<CommentItem | null>(null);
-  const [listDisplayCount, setListDisplayCount] = useState(loadmoreItemCount);
 
   useEffect(() => {
     const fetchComment = async () => {
@@ -40,64 +47,79 @@ const CommentListItem = (props: CommentListItemProps) => {
     fetchComment();
   }, [commentId]);
 
-  const handleLoadMore = useCallback(() => {
-    setListDisplayCount(listDisplayCount + loadmoreItemCount);
-  }, [listDisplayCount]);
-
   const hasChildren = (comment?.kids ?? []).length > 0;
-  const shouldDisplayLoadMoreButton =
-    (comment?.kids ?? []).length !== listDisplayCount;
+  const hasMoreThanOnceChildren = (comment?.kids ?? []).length > 1;
 
   if (comment?.deleted) {
+    return <div className="pb-4 text-gray-500">Deleted</div>;
+  }
+
+  if (!Boolean(comment)) {
+    return <Skeleton />;
+  }
+
+  if (comment) {
     return (
-      <div className="p-4">
-        <div className="text-gray-500">Deleted</div>
-      </div>
+      <>
+        <Link href={`/item/${comment.id}`}>
+          <a>
+            <article className="flex">
+              <div className="mr-2 flex flex-col">
+                <div className="flex-shrink">
+                  <Link href={`/user/${comment.by}`}>
+                    <a>
+                      <Avatar username={comment.by} />
+                    </a>
+                  </Link>
+                </div>
+                {((depth === 0 && hasChildren) || showThreadLine) && (
+                  <div className="h-full w-0.5 justify-center bg-gray-300 mx-auto"></div>
+                )}
+              </div>
+              <div>
+                <div className="flex justify-start prose-xs text-gray-500">
+                  <div>@{comment.by}</div>
+                  <div className="ml-2">
+                    {getRelativeTime(new Date(comment.time * 1000))}
+                  </div>
+                </div>
+                <div>
+                  <HtmlContent content={comment?.text} />
+                </div>
+                <div className="flex py-2">
+                  <CommentIcon />
+                  <span className="ml-1">{(comment?.kids ?? []).length}</span>
+                </div>
+              </div>
+            </article>
+          </a>
+        </Link>
+        {hasChildren && depth === 0 && (
+          <CommentListItem
+            commentId={comment?.kids?.[0] ?? 0}
+            depth={depth + 1}
+            showThreadLine={hasMoreThanOnceChildren}
+          />
+        )}
+        {hasMoreThanOnceChildren && depth === 0 && (
+          <div className="flex">
+            <div className="mr-2 flex flex-col w-8 h-8 space-y-1">
+              <div className="w-0.5 justify-center mx-auto"></div>
+              <div className="h-1.5 w-0.5 justify-center bg-gray-300 mx-auto"></div>
+              <div className="h-1 w-0.5 justify-center bg-gray-300 mx-auto"></div>
+              <div className="h-0.5 w-0.5 justify-center bg-gray-300 mx-auto"></div>
+            </div>
+
+            <Link href={`/item/${comment.id}`} passHref>
+              <StyledAnchor>Show this thread</StyledAnchor>
+            </Link>
+          </div>
+        )}
+      </>
     );
   }
 
-  return (
-    <div className="p-4">
-      {comment ? (
-        <article>
-          <div className="flex justify-start prose-sm text-gray-500">
-            <div>{comment.by}</div>
-            <div className="ml-2">
-              {getRelativeTime(new Date(comment.time * 1000))}
-            </div>
-          </div>
-          <div>
-            <div dangerouslySetInnerHTML={{ __html: comment.text }} />
-          </div>
-          <div>sub-comments count: {(comment?.kids ?? []).length}</div>
-          {hasChildren && (
-            <>
-              <List component="div">
-                {(comment?.kids ?? [])
-                  .slice(0, listDisplayCount)
-                  .map((subCommentId) => (
-                    <CommentListItem
-                      key={subCommentId}
-                      commentId={subCommentId}
-                    />
-                  ))}
-              </List>
-              {shouldDisplayLoadMoreButton && (
-                <button
-                  className="m-auto bg-amber-400 rounded-lg p-2"
-                  onClick={handleLoadMore}
-                >
-                  Load More
-                </button>
-              )}
-            </>
-          )}
-        </article>
-      ) : (
-        <Skeleton />
-      )}
-    </div>
-  );
+  return null;
 };
 
 export default CommentListItem;
