@@ -36,7 +36,7 @@ const ItemPage = (props: ItemPageProps) => {
       <NewsCard item={item} />
       <div className="list-none m-0 p-0">
         {commentIdList.slice(0, listDisplayCount).map((commentId) => (
-          <ThreadListItem>
+          <ThreadListItem key={commentId}>
             <CommentListItem key={commentId} commentId={commentId} />
           </ThreadListItem>
         ))}
