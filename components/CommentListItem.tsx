@@ -61,7 +61,7 @@ const CommentListItem = (props: CommentListItemProps) => {
   if (comment) {
     return (
       <>
-        <Link href={`/item/${comment.id}`}>
+        <Link href={`/items/${comment.id}`}>
           <a>
             <article className="flex">
               <div className="mr-2 flex flex-col">
@@ -110,7 +110,7 @@ const CommentListItem = (props: CommentListItemProps) => {
               <div className="h-0.5 w-0.5 justify-center bg-gray-300 mx-auto"></div>
             </div>
 
-            <Link href={`/item/${comment.id}`} passHref>
+            <Link href={`/items/${comment.id}`} passHref>
               <StyledAnchor>Show this thread</StyledAnchor>
             </Link>
           </div>

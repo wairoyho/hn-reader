@@ -37,7 +37,7 @@ const SubmittedItem = ({ id }: { id: number }) => {
   if (!item) return <Skeleton />;
 
   return (
-    <Link href={`/item/${id}`} passHref>
+    <Link href={`/items/${id}`} passHref>
       <a>
         <NewsCard item={item} />
       </a>

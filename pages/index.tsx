@@ -42,7 +42,7 @@ const IndexPage = () => {
     <Layout title="Home">
       <List>
         {topItemIdList.slice(0, displayStoryCount).map((storyId) => (
-          <Link key={storyId} href={`/item/${storyId}`}>
+          <Link key={storyId} href={`/items/${storyId}`}>
             <a>
               <StoryListItem storyId={storyId} />
             </a>
