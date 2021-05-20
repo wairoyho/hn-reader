@@ -80,3 +80,12 @@ export type NewsItem =
   | JobItem
   | PollItem
   | PollOptItem;
+
+export interface UserItem {
+  about: string;
+  created: number;
+  delay: number;
+  id: string;
+  karma: number;
+  submitted: number[];
+}

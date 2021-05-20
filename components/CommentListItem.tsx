@@ -66,7 +66,7 @@ const CommentListItem = (props: CommentListItemProps) => {
             <article className="flex">
               <div className="mr-2 flex flex-col">
                 <div className="flex-shrink">
-                  <Link href={`/user/${comment.by}`}>
+                  <Link href={`/users/${comment.by}`}>
                     <a>
                       <Avatar username={comment.by} />
                     </a>

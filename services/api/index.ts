@@ -3,6 +3,7 @@ import {
   NewsItem,
   StoryItem,
   CommentItem,
+  UserItem,
 } from "../../interfaces";
 
 const baseUrl = "https://hacker-news.firebaseio.com";
@@ -35,3 +36,6 @@ export const geStoryItem = getItem as (itemId: number) => Promise<StoryItem>;
 export const getCommentItem = getItem as (
   itemId: number
 ) => Promise<CommentItem>;
+
+export const getUserProfile = async (userId: string): Promise<UserItem> =>
+  await apiInstance(`/v0/user/${userId}.json`);
