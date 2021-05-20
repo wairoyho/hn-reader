@@ -13,6 +13,7 @@ export type StoryListType = "top" | "best" | "new";
 
 export interface StoryItem {
   by: string;
+  deleted?: boolean;
   descendants: number;
   id: number;
   kids?: number[];

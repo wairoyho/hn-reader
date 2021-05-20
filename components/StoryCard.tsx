@@ -9,6 +9,10 @@ interface StoryCardProps {
 const StoryCard = (props: StoryCardProps) => {
   const { story } = props;
 
+  if (story.deleted) {
+    return <div className="m-4">Delected</div>;
+  }
+
   return (
     <article className="w-full">
       <div className="p-4">
