@@ -88,7 +88,15 @@ const StoryListItem = (props: StoryListItemProps) => {
           <div className="mt-2">
             <p className="prose-sm text-gray-500">
               <span className="inline prose-lg text-black">{story.title}</span>
-              {story.url && <> ({new URL(story.url).hostname})</>}
+              {story.url && (
+                <>
+                  (
+                  <span onClick={() => window.open(story.url)}>
+                    {new URL(story.url).hostname}
+                  </span>
+                  )
+                </>
+              )}
             </p>
           </div>
         </article>
