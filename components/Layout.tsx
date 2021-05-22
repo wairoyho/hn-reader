@@ -1,7 +1,37 @@
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
+
+const Tabs = (props: { children: ReactNode }) => {
+  const { children } = props;
+
+  return (
+    <div className="w-full block flex justify-between" role="tablist">
+      {children}
+    </div>
+  );
+};
+
+const Tab = (props: { route: string; children: ReactNode }) => {
+  const { route, children } = props;
+
+  const router = useRouter();
+  const isMatchRoute = (route: string) => router.route === route;
+
+  return (
+    <div className="flex-1 text-center" role="tab">
+      <Link href={route}>
+        <a>
+          <span className={isMatchRoute(route) ? "font-medium text-white" : ""}>
+            {children}
+          </span>
+          {isMatchRoute(route) && <div className="w-full bg-white h-0.5" />}
+        </a>
+      </Link>
+    </div>
+  );
+};
 
 type LayoutProps = {
   children?: ReactNode;
@@ -11,7 +41,7 @@ type LayoutProps = {
 const Layout = ({ children, title = "" }: LayoutProps) => {
   const router = useRouter();
 
-  const isHomePage = router.route === "/";
+  const isHomePage = ["/", "/best", "/latest"].includes(router.route);
 
   const handleBackButtonClick = () => {
     const isHeadOfHistory = window.history?.state?.idx === 0;
@@ -61,19 +91,11 @@ const Layout = ({ children, title = "" }: LayoutProps) => {
       </header>
       {isHomePage && (
         <nav className="sticky block top-0 bg-orange-500 px-4 py-2 z-20 prose-lg">
-          <div className="w-full block">
-            <Link href="/">
-              <a>Home</a>
-            </Link>{" "}
-            |{" "}
-            <Link href="/newest">
-              <a>Newest</a>
-            </Link>{" "}
-            |{" "}
-            <Link href="/best">
-              <a>Best</a>
-            </Link>
-          </div>
+          <Tabs>
+            <Tab route="/">Top</Tab>
+            <Tab route="/latest">Latest</Tab>
+            <Tab route="/best">Best</Tab>
+          </Tabs>
         </nav>
       )}
       <main>{children}</main>
