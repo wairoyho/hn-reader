@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import Avatar from "../components/Avatar";
 import HtmlContent from "../components/HtmlContent";
+import { useNewsItemStore } from "../components/NewsItemStore";
 import { CommentIcon } from "../components/icons";
 import { CommentItem } from "../interfaces";
 import { getCommentItem } from "../services/api";
@@ -36,16 +37,21 @@ interface CommentListItemProps {
 const CommentListItem = (props: CommentListItemProps) => {
   const { commentId, depth = 0, showThreadLine = false } = props;
 
-  const [comment, setComment] = useState<CommentItem | null>(null);
+  const comment = useNewsItemStore(
+    (state) => state.items[commentId]
+  ) as CommentItem;
+  const setItem = useNewsItemStore((state) => state.setItem);
 
   useEffect(() => {
     const fetchComment = async () => {
       const item = await getCommentItem(commentId);
 
-      setComment(item);
+      setItem(commentId, item);
     };
-    fetchComment();
-  }, [commentId]);
+    if (!comment) {
+      fetchComment();
+    }
+  }, [comment]);
 
   const hasChildren = (comment?.kids ?? []).length > 0;
   const hasMoreThanOnceChildren = (comment?.kids ?? []).length > 1;

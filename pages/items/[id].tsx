@@ -1,10 +1,11 @@
 import styled from "@emotion/styled";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import CommentListItem from "../../components/CommentListItem";
 import Layout from "../../components/Layout";
 import NewsCard from "../../components/NewsCard";
+import { useNewsItemStore } from "../../components/NewsItemStore";
 import { NewsItem } from "../../interfaces";
 import { getItem } from "../../services/api";
 
@@ -15,17 +16,24 @@ const ThreadListItem = styled.div`
 `;
 
 interface ItemPageProps {
+  id: number;
   item: NewsItem;
 }
 
 const LOAD_MORE_COUNT = 10;
 
 const ItemPage = (props: ItemPageProps) => {
-  const { item } = props;
+  const { id, item } = props;
+
+  const setItem = useNewsItemStore((state) => state.setItem);
 
   // @ts-ignore property kids doesn't exist
   const commentIdList = (item?.kids ?? []) as any[];
   const [listDisplayCount, setListDisplayCount] = useState(LOAD_MORE_COUNT);
+
+  useEffect(() => {
+    setItem(id, item);
+  }, []);
 
   const handleLoadMore = useCallback(() => {
     setListDisplayCount(listDisplayCount + LOAD_MORE_COUNT);
