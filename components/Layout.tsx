@@ -1,7 +1,14 @@
+import styled from "@emotion/styled";
 import React, { ReactNode } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
+
+const TabIndicator = styled.div`
+  width: 100%;
+  height: 0.125rem;
+  background-color: white;
+`;
 
 const Tabs = (props: { children: ReactNode }) => {
   const { children } = props;
@@ -26,7 +33,7 @@ const Tab = (props: { route: string; children: ReactNode }) => {
           <span className={isMatchRoute(route) ? "font-medium text-white" : ""}>
             {children}
           </span>
-          {isMatchRoute(route) && <div className="w-full bg-white h-0.5" />}
+          {isMatchRoute(route) && <TabIndicator />}
         </a>
       </Link>
     </div>
