@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { useNewsItemStore } from "../components/NewsItemStore";
 import Layout from "../components/Layout";
@@ -10,6 +10,8 @@ import { getStoryList } from "../services/api";
 const DISPALY_DISPLAY_COUNT = 10;
 
 const IndexPage = () => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const topItemIdList = useNewsItemStore((state) => state.lists.top?.ids ?? []);
   const setTopItemIdList = useNewsItemStore((state) => state.setList);
   const displayStoryCount = useNewsItemStore(
@@ -19,14 +21,17 @@ const IndexPage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const storyIds = await getStoryList("top");
+      setIsLoading(true);
 
+      const storyIds = await getStoryList("top");
       setTopItemIdList("top", storyIds);
+
+      setIsLoading(false);
     };
-    if (topItemIdList.length === 0) {
+    if (topItemIdList.length === 0 && !isLoading) {
       fetchData();
     }
-  }, [topItemIdList]);
+  }, [topItemIdList, isLoading]);
 
   useEffect(() => {
     if (!Boolean(displayStoryCount)) {
