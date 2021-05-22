@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 
 import { useNewsItemStore } from "../components/NewsItemStore";
 import Layout from "../components/Layout";
