@@ -23,12 +23,9 @@ interface NewsItemStoreContextValue {
 const NewsItemStoreContext = createContext<NewsItemStoreContextValue>({
   lists: {},
   items: {},
-  // @ts-ignore: value is never read
-  setItem: (id: number, item: NewsItem) => {},
-  // @ts-ignore value never read
-  setList: (key: number | string, ids: number[]) => {},
-  // @ts-ignore value never read
-  setListOffest: (key: number | string, offest: number) => {},
+  setItem: (_id: number, _item: NewsItem) => {},
+  setList: (_key: number | string, _ids: number[]) => {},
+  setListOffset: (_key: number | string, _offest: number) => {},
 });
 
 const NewsItemStoreProvider = ({ children }: { children: ReactNode }) => {
