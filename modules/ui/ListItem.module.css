@@ -1,0 +1,22 @@
+.root {
+  align-items: center;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-start;
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+  position: relative;
+  text-align: left;
+  text-decoration: none;
+  width: 100%;
+}
+
+.divider {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  background-clip: padding-box;
+}
+
+.gutters {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}

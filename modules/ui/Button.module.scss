@@ -1,0 +1,24 @@
+.root {
+  border-radius: 0.25rem;
+  padding-top: 0.5rem;
+  padding-right: 1rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+}
+
+.variant-contained {
+  background-color: darkorange;
+}
+
+.variant-outlined {
+  border-color: darkorange;
+}
+
+.variant-text {
+  color: darkorange;
+}
+.disabled {
+  background-color: gainsboro;
+  color: whitesmoke;
+  pointer-events: none;
+}
