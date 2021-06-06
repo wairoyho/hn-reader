@@ -27,7 +27,7 @@ const getColorCode = (score: number) => {
   if (score < 300) return "#FB923C";
   if (score < 500) return "#F97316";
   if (score < 1000) return "#EA580C";
-  if (score < 2000) return "#C2410C";
+  return "#C2410C";
 };
 
 const StoryListItem = (props: StoryListItemProps) => {
