@@ -1,0 +1,7 @@
+.content {
+  word-break: break-word;
+  & > pre {
+    white-space: pre-wrap;
+    background-color: var(--palette-gray-200);
+  }
+}
