@@ -1,0 +1,18 @@
+.card {
+  width: 100%;
+  > .container {
+    padding: 1rem;
+  }
+}
+
+.cardHeader {
+  display: flex;
+
+  > .space {
+    margin-left: 0.5rem;
+  }
+}
+
+.cardFooter {
+  display: flex;
+}
