@@ -1,7 +1,7 @@
 import styles from "./ListItemText.module.scss";
 
 interface ListItemTextProps {
-  primary: string;
+  primary: React.ReactNode | string;
   secondary?: string;
 }
 

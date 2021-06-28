@@ -1,0 +1,9 @@
+.root {
+  height: 4rem;
+  display: flex;
+  justify-content: center;
+  background-color: var(--theme-palette-background-light);
+  border-top-width: 1px;
+  border-color: var(--theme-palette-primary-light);
+  // border-color: var(--theme-palette-secondary-main);
+}

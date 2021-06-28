@@ -1,7 +1,16 @@
+export { default as AppBar } from "./AppBar";
+export { default as BottomNavigation } from "./BottomNavigation";
+export { default as BottomNavigationAction } from "./BottomNavigationAction";
 export { default as Button } from "./Button";
 export { default as Divider } from "./Divider";
+export { default as IconButton } from "./IconButton";
 export { default as List } from "./List";
 export { default as ListItem } from "./ListItem";
 export { default as ListItemSecondaryAction } from "./ListItemSecondaryAction";
 export { default as ListItemText } from "./ListItemText";
 export { default as ListSubheader } from "./ListSubheader";
+export { default as Tab } from "./Tab";
+export { default as Tabs } from "./Tabs";
+export { default as Toggle } from "./Toggle";
+export { default as Toolbar } from "./Toolbar";
+export { default as Typography } from "./Typography";

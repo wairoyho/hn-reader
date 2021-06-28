@@ -1,8 +1,7 @@
-import { ReactNode } from "react";
 import styles from "./ListItemSecondaryAction.module.scss";
 
 interface ListItemSecondaryActionProps {
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
 const ListItemSecondaryAction = (props: ListItemSecondaryActionProps) => {

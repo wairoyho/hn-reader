@@ -1,10 +1,9 @@
-import { ReactNode } from "react";
+import { composeClasses } from "../styles";
 
 import styles from "./ListSubheader.module.scss";
-import { composeClasses } from "./styles";
 
 interface ListSubheaderProps {
-  children: ReactNode;
+  children: React.ReactNode;
   disableGutters?: boolean;
   disableSticky?: boolean;
 }

@@ -1,0 +1,25 @@
+.root {
+  border-radius: 0.25rem;
+  padding-top: 0.5rem;
+  padding-right: 1rem;
+  padding-bottom: 0.5rem;
+  padding-left: 1rem;
+}
+
+.variant-contained {
+  background-color: var(--theme-palette-primary-main);
+  color: var(--theme-palette-primary-contrast-text);
+}
+
+.variant-outlined {
+  border-color: var(--theme-palette-primary-main);
+}
+
+.variant-text {
+  color: var(--theme-palette-primary-main);
+}
+.disabled {
+  background-color: var(--theme-palette-grey-300);
+  color: var(--theme-palette-grey-700);
+  pointer-events: none;
+}

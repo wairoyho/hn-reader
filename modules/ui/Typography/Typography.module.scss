@@ -1,0 +1,145 @@
+.root {
+  margin: 0;
+}
+
+.noWrap {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gutterBottom {
+  margin-bottom: 0.35em;
+}
+
+.paragraph {
+  margin-bottom: 16px;
+}
+
+.align-center {
+  text-align: center;
+}
+.align-inherit {
+  text-align: inherit;
+}
+.align-justify {
+  text-align: justify;
+}
+.align-left {
+  text-align: left;
+}
+.align-right {
+  text-align: right;
+}
+
+.color-inherit {
+  color: inherit;
+}
+.color-primary {
+  color: var(--theme-palette-primary-main);
+}
+.color-secondary {
+  color: var(--theme-palette-secondary-main);
+}
+.color-textPrimary {
+  color: var(--theme-palette-text-primary);
+}
+.color-textSecondary {
+  color: var(--theme-palette-text-secondary);
+}
+.color-error {
+  color: var(--theme-palette-error-main);
+}
+
+.display-initial {
+  display: initial;
+}
+
+.display-block {
+  display: block;
+}
+
+.display-inline {
+  display: inline;
+}
+
+.variant-h1 {
+  font-weight: var(--typography-h1-font-weight);
+  font-size: var(--typography-h1-font-size);
+  line-height: var(--typography-h1-line-height);
+  letter-spacing: var(--typography-h1-letter-spacing);
+}
+.variant-h2 {
+  font-weight: var(--typography-h2-font-weight);
+  font-size: var(--typography-h2-font-size);
+  line-height: var(--typography-h2-line-height);
+  letter-spacing: var(--typography-h2-letter-spacing);
+}
+.variant-h3 {
+  font-weight: var(--typography-h3-font-weight);
+  font-size: var(--typography-h3-font-size);
+  line-height: var(--typography-h3-line-height);
+  letter-spacing: var(--typography-h3-letter-spacing);
+}
+.variant-h4 {
+  font-weight: var(--typography-h4-font-weight);
+  font-size: var(--typography-h4-font-size);
+  line-height: var(--typography-h4-line-height);
+  letter-spacing: var(--typography-h4-letter-spacing);
+}
+.variant-h5 {
+  font-weight: var(--typography-h5-font-weight);
+  font-size: var(--typography-h5-font-size);
+  line-height: var(--typography-h5-line-height);
+  letter-spacing: var(--typography-h5-letter-spacing);
+}
+.variant-h6 {
+  font-weight: var(--typography-h6-font-weight);
+  font-size: var(--typography-h6-font-size);
+  line-height: var(--typography-h6-line-height);
+  letter-spacing: var(--typography-h6-letter-spacing);
+}
+.variant-subtitle1 {
+  font-weight: var(--typography-subtitle1-font-weight);
+  font-size: var(--typography-subtitle1-font-size);
+  line-height: var(--typography-subtitle1-line-height);
+  letter-spacing: var(--typography-subtitle1-letter-spacing);
+}
+.variant-subtitle2 {
+  font-weight: var(--typography-subtitle2-font-weight);
+  font-size: var(--typography-subtitle2-font-size);
+  line-height: var(--typography-subtitle2-line-height);
+  letter-spacing: var(--typography-subtitle2-letter-spacing);
+}
+.variant-body1 {
+  font-weight: var(--typography-body1-font-weight);
+  font-size: var(--typography-body1-font-size);
+  line-height: var(--typography-body1-line-height);
+  letter-spacing: var(--typography-body1-letter-spacing);
+}
+.variant-body2 {
+  font-weight: var(--typography-body2-font-weight);
+  font-size: var(--typography-body2-font-size);
+  line-height: var(--typography-body2-line-height);
+  letter-spacing: var(--typography-body2-letter-spacing);
+}
+.variant-button {
+  font-weight: var(--typography-button-font-weight);
+  font-size: var(--typography-button-font-size);
+  line-height: var(--typography-button-line-height);
+  letter-spacing: var(--typography-button-letter-spacing);
+  text-transform: var(--typography-button-text-transform);
+}
+.variant-caption {
+  font-weight: var(--typography-caption-font-weight);
+  font-size: var(--typography-caption-font-size);
+  line-height: var(--typography-caption-line-height);
+  letter-spacing: var(--typography-caption-letter-spacing);
+}
+.variant-overline {
+  font-weight: var(--typography-overline-font-weight);
+  font-size: var(--typography-overline-font-size);
+  line-height: var(--typography-overline-line-height);
+  letter-spacing: var(--typography-overline-letter-spacing);
+  text-transform: var(--typography-overline-text-transform);
+}

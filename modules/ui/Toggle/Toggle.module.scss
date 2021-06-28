@@ -1,0 +1,52 @@
+.toggle-control {
+  position: relative;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+
+  & input[type="checkbox"].toggle-input {
+    width: 40px;
+    height: 10px;
+    background: var(--theme-palette-primary-light);
+    position: relative;
+    border-radius: 5px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    vertical-align: 2px;
+    outline: none;
+
+    &:checked + label {
+      left: 30px;
+    }
+
+    &:not(:checked) {
+      background-color: var(--theme-palette-grey-300);
+    }
+
+    &:disabled {
+      background-color: var(--theme-palette-grey-300);
+    }
+
+    &:focus-visible {
+      outline: solid 2px white;
+    }
+
+    & + label {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: absolute;
+      left: 2px;
+      opacity: 0.9;
+      background-color: var(--theme-palette-primary-main);
+    }
+    &:disabled + label {
+      background-color: var(--theme-palette-grey-500);
+    }
+  }
+}

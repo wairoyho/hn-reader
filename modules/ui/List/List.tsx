@@ -1,6 +1,6 @@
-import styles from "./List.module.scss";
+import { composeClasses } from "../styles";
 
-import { composeClasses } from "./styles";
+import styles from "./List.module.scss";
 
 interface ListProps {
   children: React.ReactNode;

@@ -1,0 +1,20 @@
+.root {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.gutters {
+  padding-left: var(--theme-spacing-2);
+  padding-right: var(--theme-spacing-2);
+}
+
+.variant-dense {
+  min-height: 48px;
+  // TODO: @media query
+}
+
+.variant-regular {
+  min-height: 56px;
+  // TODO: @media query
+}
