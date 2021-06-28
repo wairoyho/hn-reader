@@ -1,0 +1,21 @@
+.headline {
+  padding: 1rem;
+
+  > p {
+    font-weight: 700;
+  }
+}
+
+.search-history-item {
+  padding: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-bottom-width: 1px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.delete-button {
+  color: red;
+}
