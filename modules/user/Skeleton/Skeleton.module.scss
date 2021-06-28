@@ -1,0 +1,45 @@
+.root {
+  display: flex;
+  width: 100%;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  padding-bottom: 1rem;
+}
+
+.card {
+  flex: 1 1 0%;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
+
+.card > :not([hidden]) ~ :not([hidden]) {
+  --space-y-reverse: 0;
+  margin-top: calc(1rem * calc(1 - var(--space-y-reverse)));
+  margin-bottom: calc(1rem * var(--space-y-reverse));
+}
+
+.title {
+  background-color: var(--theme-palette-skeleton);
+  border-radius: 0.25rem;
+  height: 1rem;
+  width: 50%;
+}
+
+.content > :not([hidden]) ~ :not([hidden]) {
+  --space-y-reverse: 0;
+  margin-top: calc(0.5rem * calc(1 - var(--space-y-reverse)));
+  margin-bottom: calc(0.5rem * var(--space-y-reverse));
+}
+
+.line-w-full {
+  background-color: var(--theme-palette-skeleton);
+  border-radius: 0.25rem;
+  height: 1.25rem;
+  width: 100%;
+}
+
+.line-w-2\/3 {
+  background-color: var(--theme-palette-skeleton);
+  border-radius: 0.25rem;
+  height: 1.25rem;
+  width: 66.666667%;
+}
