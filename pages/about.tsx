@@ -1,5 +1,4 @@
-import Layout from "../components/Layout";
-
+import { Layout } from "../modules/navigation";
 import {
   Divider,
   List,
@@ -23,8 +22,6 @@ const AboutPage = () => {
         <ListItem>
           <ListItemText primary="github" />
         </ListItem>
-
-        {/* <ListSubheader>Sponsorships</ListSubheader> */}
       </List>
     </Layout>
   );

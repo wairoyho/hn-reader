@@ -1,12 +1,12 @@
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCallback, useEffect } from "react";
 
-import Layout from "../components/Layout";
-import List from "../components/List";
-import { useNewsItemStore } from "../components/NewsItemStore";
-import StoryListItem from "../components/StoryListItem";
 import useFetch from "../hooks/useFetch";
+
+import { Layout } from "../modules/navigation";
+import { StoryListItem, useNewsItemStore } from "../modules/news";
+import { Button, List, ListSubheader, Typography } from "../modules/ui";
+
 import { getSearchByDatePath } from "../services/search";
 
 const LIST_KEY = "searchResult";
@@ -72,25 +72,34 @@ const SearchPage = () => {
 
   return (
     <Layout title="Search">
-      <List>
-        <div className="p-4 sticky top-12 bg-yellow-50 z-10 border-b">
-          <h2 className="font-black">Search Result</h2>
-        </div>
+      <List
+        subheader={
+          <ListSubheader disableSticky={true}>
+            <Typography
+              component="h2"
+              variant="subtitle1"
+              color="textPrimary"
+              style={{
+                fontWeight: 700,
+              }}
+            >
+              Search Result
+            </Typography>
+          </ListSubheader>
+        }
+      >
         {searchResultItemIdList.map((storyId) => (
-          <Link key={`search-${storyId}`} href={`/items/${storyId}`}>
-            <a>
-              <StoryListItem storyId={storyId} />
-            </a>
-          </Link>
+          <StoryListItem key={`search-${storyId}`} storyId={storyId} />
         ))}
-        <li className="flex p-2">
-          <button
-            className="m-auto bg-orange-500 rounded-lg p-2"
-            onClick={handleLoadMore}
-          >
-            Load More
-          </button>
-        </li>
+        <div
+          style={{
+            display: "flex",
+            padding: "0.5rem",
+            justifyContent: "center",
+          }}
+        >
+          <Button onClick={handleLoadMore}>Load More</Button>
+        </div>
       </List>
     </Layout>
   );

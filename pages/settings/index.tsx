@@ -1,7 +1,10 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
-import Layout from "../../components/Layout";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
+import { ListItemLink } from "../../modules/common";
+import { Icon } from "../../modules/icon";
+import { Layout } from "../../modules/navigation";
 import {
   Divider,
   List,
@@ -9,17 +12,46 @@ import {
   ListItemText,
   ListSubheader,
   ListItemSecondaryAction,
+  Toggle,
 } from "../../modules/ui";
-import { ListItemLink } from "../../modules/common";
-import useLocalStorage from "../../hooks/useLocalStorage";
 
 const SettingsIndexPage = () => {
   const [usernameInloacalStorage] = useLocalStorage("username", "");
   const [username, setUsername] = useState("");
+  const [shouldToggleDisable, setShouldToggleDisable] = useState(false);
+
+  const [darkMode, setDarkMode] = useLocalStorage("darkMode", false);
 
   useEffect(() => {
     setUsername(usernameInloacalStorage);
+    setShouldToggleDisable(
+      window.matchMedia("(prefers-color-scheme: dark)").matches ? true : false
+    );
   }, []);
+
+  const handleDarkModeToogleChange = useCallback(
+    (_e: React.FormEvent<HTMLInputElement>) => {
+      const prefersDarkScheme = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      );
+
+      let themeMode;
+      if (prefersDarkScheme.matches) {
+        document.body.classList.toggle("light-theme");
+        themeMode = document.body.classList.contains("light-theme")
+          ? false
+          : true;
+      } else {
+        document.body.classList.toggle("dark-theme");
+        themeMode = document.body.classList.contains("dark-theme")
+          ? true
+          : false;
+      }
+
+      setDarkMode(themeMode);
+    },
+    [darkMode]
+  );
 
   return (
     <Layout title="Settings">
@@ -31,21 +63,7 @@ const SettingsIndexPage = () => {
             secondary={Boolean(username) ? `@${username}` : ""}
           />
           <ListItemSecondaryAction>
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M9 6L15 12L9 18"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            <Icon icon="arrowRight" />
           </ListItemSecondaryAction>
         </ListItemLink>
 
@@ -53,7 +71,14 @@ const SettingsIndexPage = () => {
         <Divider />
         <ListItem>
           <ListItemText primary="Dark mode" />
-          <ListItemSecondaryAction>Off</ListItemSecondaryAction>
+          <ListItemSecondaryAction>
+            <Toggle
+              disabled={shouldToggleDisable}
+              label="darkmode"
+              checked={darkMode}
+              onChange={handleDarkModeToogleChange}
+            />
+          </ListItemSecondaryAction>
         </ListItem>
 
         <ListSubheader>Miscellaneous</ListSubheader>

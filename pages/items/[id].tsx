@@ -1,19 +1,29 @@
-import styled from "@emotion/styled";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { useCallback, useEffect, useState } from "react";
 
-import CommentListItem from "../../components/CommentListItem";
-import Layout from "../../components/Layout";
-import NewsCard from "../../components/NewsCard";
-import { useNewsItemStore } from "../../components/NewsItemStore";
 import { NewsItem } from "../../interfaces";
+
+import { Layout } from "../../modules/navigation";
+import {
+  CommentListItem,
+  NewsCard,
+  useNewsItemStore,
+} from "../../modules/news";
+import { Button, List } from "../../modules/ui";
+
 import { getItem } from "../../services/api";
 
-const ThreadListItem = styled.div`
-  padding: 1rem;
-  padding-bottom: 0rem;
-  border-bottom-width: 1px;
-`;
+const ThreadListItem = ({ children }: { children: React.ReactElement }) => (
+  <div
+    style={{
+      padding: "1rem",
+      paddingBottom: "0rem",
+      borderBottomWidth: "1px",
+    }}
+  >
+    {children}
+  </div>
+);
 
 interface ItemPageProps {
   id: number;
@@ -42,21 +52,22 @@ const ItemPage = (props: ItemPageProps) => {
   return (
     <Layout title="Thread">
       <NewsCard item={item} />
-      <div className="list-none m-0 p-0">
+      <List>
         {commentIdList.slice(0, listDisplayCount).map((commentId) => (
           <ThreadListItem key={commentId}>
             <CommentListItem key={commentId} commentId={commentId} />
           </ThreadListItem>
         ))}
+      </List>
+      <div
+        style={{
+          display: "flex",
+          padding: "0.5rem",
+          justifyContent: "center",
+        }}
+      >
+        <Button onClick={handleLoadMore}>Load More</Button>
       </div>
-      <li className="flex p-2">
-        <button
-          className="m-auto bg-amber-400 rounded-lg p-2"
-          onClick={handleLoadMore}
-        >
-          Load More
-        </button>
-      </li>
     </Layout>
   );
 };

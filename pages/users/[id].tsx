@@ -1,26 +1,16 @@
-import styled from "@emotion/styled";
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 
-import HtmlContent from "../../components/HtmlContent";
-import Layout from "../../components/Layout";
-import NewsCard from "../../components/NewsCard";
 import { UserItem, NewsItem } from "../../interfaces";
-import { getUserProfile, getItem } from "../../services/api";
 
-const Skeleton = () => (
-  <div className="flex w-full space-x-4 animate-pulse">
-    <div className="flex-1 space-y-4 py-1">
-      <div className="h-4 bg-amber-100 rounded w-1/2" />
-      <div className="space-y-2">
-        <div className="h-5 bg-amber-100 rounded" />
-        <div className="h-5 bg-amber-100 rounded" />
-        <div className="h-5 bg-amber-100 rounded w-4/6" />
-      </div>
-    </div>
-  </div>
-);
+import { HtmlContent } from "../../modules/common";
+import { Layout } from "../../modules/navigation";
+import { NewsCard } from "../../modules/news";
+import { Button, List, Typography } from "../../modules/ui";
+import { Skeleton, SubmittedListItem } from "../../modules/user";
+
+import { getUserProfile, getItem } from "../../services/api";
 
 const SubmittedItem = ({ id }: { id: number }) => {
   const [item, setItem] = useState<NewsItem | null>(null);
@@ -45,12 +35,6 @@ const SubmittedItem = ({ id }: { id: number }) => {
   );
 };
 
-const SubmittedListItem = styled.div`
-  padding: 1rem;
-  padding-bottom: 0rem;
-  border-bottom-width: 1px;
-`;
-
 interface UserPageProps {
   user: UserItem;
 }
@@ -68,50 +52,75 @@ const UserPage = (props: UserPageProps) => {
 
   return (
     <Layout title="User">
-      <div className="p-4 border-b">
+      <div style={{ padding: "1rem", borderBottomWidth: "1px" }}>
         <div>
-          <span className="prose-lg font-bold">{user.id}</span>
+          <Typography component="span" variant="h6" style={{ fontWeight: 700 }}>
+            {user.id}
+          </Typography>
         </div>
-        <div className="pb-2">
-          <span className="text-gray-500">@{user.id}</span>
+        <div style={{ paddingBottom: "0.5rem" }}>
+          <Typography component="span" color="textSecondary">
+            @{user.id}
+          </Typography>
         </div>
         {user.about && (
-          <div className="pb-4">
+          <div style={{ paddingBottom: "1rem" }}>
             <span>
               <HtmlContent content={user.about} />
             </span>
           </div>
         )}
-        <div className="pb-2">
-          <span className="text-gray-500">Joined </span>
-          <span className="text-gray-500">
+        <div style={{ paddingBottom: "0.5rem" }}>
+          <Typography component="span" color="textSecondary">
+            Joined{" "}
+          </Typography>
+          <Typography component="span" color="textSecondary">
             {new Date(user.created * 1000).toDateString()}
-          </span>
+          </Typography>
         </div>
         <div>
-          <span className="font-bold">{user.karma}</span>
-          <span className="text-gray-500"> Karma</span>
+          <Typography
+            component="span"
+            color="textSecondary"
+            style={{ fontWeight: 700 }}
+          >
+            {user.karma}
+          </Typography>
+          <Typography component="span" color="textSecondary">
+            {" "}
+            Karma
+          </Typography>
         </div>
         <div>
-          <span className="font-bold">{user.submitted.length}</span>
-          <span className="text-gray-500"> Submissions</span>
+          <Typography
+            component="span"
+            color="textSecondary"
+            style={{ fontWeight: 700 }}
+          >
+            {user.submitted.length}
+          </Typography>
+          <Typography component="span" color="textSecondary">
+            {" "}
+            Submissions
+          </Typography>
         </div>
       </div>
-      <div className="list-none m-0 p-0">
+      <List>
         {user.submitted.slice(0, listDisplayCount).map((itemId) => (
           <SubmittedListItem key={itemId}>
             <SubmittedItem id={itemId} />
           </SubmittedListItem>
         ))}
+      </List>
+      <div
+        style={{
+          display: "flex",
+          padding: "0.5rem",
+          justifyContent: "center",
+        }}
+      >
+        <Button onClick={handleLoadMore}>Load More</Button>
       </div>
-      <li className="flex p-2">
-        <button
-          className="m-auto bg-amber-400 rounded-lg p-2"
-          onClick={handleLoadMore}
-        >
-          Load More
-        </button>
-      </li>
     </Layout>
   );
 };

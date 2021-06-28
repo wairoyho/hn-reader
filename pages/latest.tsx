@@ -1,23 +1,23 @@
-import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 
-import { useNewsItemStore } from "../components/NewsItemStore";
-import Layout from "../components/Layout";
-import List from "../components/List";
-import StoryListItem from "../components/StoryListItem";
+import { Layout } from "../modules/navigation";
+import { StoryListItem, useNewsItemStore } from "../modules/news";
+import { Button, List } from "../modules/ui";
+
 import { getStoryList } from "../services/api";
 
+const LIST_KEY = "latest";
 const DISPALY_DISPLAY_COUNT = 10;
 
 const LatestPage = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const latestItemIdList = useNewsItemStore(
-    (state) => state.lists.latest?.ids ?? []
+    (state) => state.lists[LIST_KEY]?.ids ?? []
   );
-  const setBestItemIdList = useNewsItemStore((state) => state.setList);
+  const setLatestItemIdList = useNewsItemStore((state) => state.setList);
   const displayStoryCount = useNewsItemStore(
-    (state) => state.lists.latest?.offset ?? 0
+    (state) => state.lists[LIST_KEY]?.offset ?? 0
   );
   const setDisplayStoryCount = useNewsItemStore((state) => state.setListOffset);
 
@@ -26,7 +26,7 @@ const LatestPage = () => {
       setIsLoading(true);
 
       const storyIds = await getStoryList("new");
-      setBestItemIdList("latest", storyIds);
+      setLatestItemIdList(LIST_KEY, storyIds);
 
       setIsLoading(false);
     };
@@ -37,32 +37,32 @@ const LatestPage = () => {
 
   useEffect(() => {
     if (!Boolean(displayStoryCount)) {
-      setDisplayStoryCount("latest", displayStoryCount + DISPALY_DISPLAY_COUNT);
+      setDisplayStoryCount(LIST_KEY, displayStoryCount + DISPALY_DISPLAY_COUNT);
     }
   }, []);
 
   const handleLoadMore = useCallback(() => {
-    setDisplayStoryCount("latest", displayStoryCount + DISPALY_DISPLAY_COUNT);
+    setDisplayStoryCount(LIST_KEY, displayStoryCount + DISPALY_DISPLAY_COUNT);
   }, [displayStoryCount]);
 
   return (
     <Layout title="Home">
       <List>
         {latestItemIdList.slice(0, displayStoryCount).map((storyId) => (
-          <Link key={storyId} href={`/items/${storyId}`}>
-            <a>
-              <StoryListItem storyId={storyId} />
-            </a>
-          </Link>
+          <StoryListItem
+            key={`latest-story-listitem-${storyId}`}
+            storyId={storyId}
+          />
         ))}
-        <li className="flex p-2">
-          <button
-            className="m-auto bg-orange-500 rounded-lg p-2"
-            onClick={handleLoadMore}
-          >
-            Load More
-          </button>
-        </li>
+        <div
+          style={{
+            display: "flex",
+            padding: "0.5rem",
+            justifyContent: "center",
+          }}
+        >
+          <Button onClick={handleLoadMore}>Load More</Button>
+        </div>
       </List>
     </Layout>
   );

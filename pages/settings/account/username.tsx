@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-import Layout from "../../../components/Layout";
-
-import { Button } from "../../../modules/ui";
 import useLocalStorage from "../../../hooks/useLocalStorage";
+
+import { Layout } from "../../../modules/navigation";
+import { Button } from "../../../modules/ui";
 
 const SettingsAccountUsernamePage = () => {
   const [username, setUsername] = useLocalStorage("username", "");

@@ -1,21 +1,13 @@
-import Head from "next/head";
-
+import "../styles/app.scss";
 import "../styles/tailwind.scss";
 
 import type { AppProps /*, AppContext */ } from "next/app";
 
-import NewsItemStoreProvider from "../components/NewsItemStore";
+import { NewsItemStoreProvider } from "../modules/news";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-      <Head>
-        <meta charSet="utf-8" />
-        <meta
-          name="viewport"
-          content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,viewport-fit=cover"
-        />
-      </Head>
       <NewsItemStoreProvider>
         <Component {...pageProps} />
       </NewsItemStoreProvider>
